@@ -1,7 +1,11 @@
 <?php
 
+session_start();
+unset($_SESSION["gebruikersnaam"]);
+
 session_destroy();
 
-header("Location: logout.php");
+header("Location: loginEmployee.php");
+
 
 ?>

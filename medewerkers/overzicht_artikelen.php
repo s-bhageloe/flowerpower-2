@@ -2,20 +2,26 @@
 
 include_once '../database.php';
 
-// Connection made
-$db = new DB('localhost', 'root', '', 'flowerpower', 'utf8mb4'); //hier zet je de waardes($..) constructor
-
-$articles = $db->showArticles();
 
 session_start();
 if(!isset($_SESSION['gebruikersnaam'])) {
     // echo '<h1>Gebruiker is ingelogd</h1>';
 
-    $_SESSION['gebruikersnaam'] = true;
-    header('Location: overzicht_artikelen.php');
 
-} 
+    header('Location: loginEmployee.php');
+
+
+}
+
+
+print_r($_SESSION['gebruikersnaam']);
 // else{
+// Connection made
+$db = new DB('localhost', 'root', '', 'flowerpower', 'utf8mb4'); //hier zet je de waardes($..) constructor
+
+$articles = $db->showArticles();
+
+
 //     // User not loggedin
 //     header('Location: overzicht_artikelen.php');
 //     print "niet ingelogd";
@@ -45,7 +51,7 @@ if(!isset($_SESSION['gebruikersnaam'])) {
     <main>
     <main class="container mt-4 mb-4">
         <a class="btn btn-success mr-2 btn-sm" href="create.php">Create</a>
-        <a class="btn btn-warning mr-2 btn-sm" href="loginEmployee.php">Log out</a>
+        <a class="btn btn-warning mr-2 btn-sm" href="logout.php">Log out</a>
         <table class="table table-striped" id="overzicht">
             <thead class="thead-dark">
                 <tr>

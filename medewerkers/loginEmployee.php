@@ -1,6 +1,5 @@
 <?php
 include '../database.php';
-
 $msg = '';
 if(isset($_POST['submit'])){
 
@@ -17,7 +16,6 @@ if(isset($_POST['submit'])){
 
     if(!$error){
         $obj = new DB('localhost', 'root', '', 'flowerpower', 'utf8mb4');
-        echo 'hallo';
         $obj->loginAccount($_POST['gebruikersnaam'], $_POST['wachtwoord']);
         
     }else{
@@ -39,11 +37,11 @@ if(isset($_POST['submit'])){
 	<div class="box">
 		<h2>Inloggen</h2>
 		<div class="box-content">
-    		<form method="post" action="overzicht_artikelen.php">
+    		<form method="post">
     			<p> Username </p>
-       		<input type="text" name="username" placeholder="Username" /><br>
+       		<input type="text" name="gebruikersnaam" placeholder="Username" /><br>
         		<p> Password </p>
-        	<input type="password" name="password" placeholder="Password" /><br><br>
+        	<input type="password" name="wachtwoord" placeholder="Password" /><br><br>
         	<button type="submit" name="submit" class="btn">Login</button><br>
     		</form>
 		</div>

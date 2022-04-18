@@ -166,27 +166,26 @@ class DB{
         }
     }
 
-    public function loginmedewerkers($username, $pwd){ 
-        $sql="SELECT * FROM klant WHERE gebruikersnaam = :gebruikersnaam";
+    public function loginAccount($gebruikersnaam, $wachtwoord){
+        $sql="SELECT * FROM medewerker WHERE gebruikersnaam = :gebruikersnaam";
 
-        $stmt = $this->dbh->prepare($sql); 
-        $stmt->execute(['gebruikersnaam'=>$username]); 
+        $stmt = $this->pdo->prepare($sql); 
+        $stmt->execute(['gebruikersnaam'=>$gebruikersnaam]); 
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC); 
-       
+
         if($result){
-            if(password_verify($pwd, $result["wachtwoord"])) {
-                echo "Valid Password!";
-
-                  // Start the session
-                  session_start();
-
-                  $_SESSION['gebruikersnaam'] = $result;
+            echo 'account gevonden';
+            if ($wachtwoord == $result["wachtwoord"]) {
+                echo 'ww komt overeen';
+                // Start the session
+                SESSION_START();
                 
-                 print_r($_SESSION['gebruikersnaam']);
+                $_SESSION['gebruikersnaam'] = $result;
 
-                header("Location: overzicht_artikelen.php");
-                exit();
+                print_r($_SESSION['gebruikersnaam']);
+
+                header("location: overzicht_artikelen.php");
             } else {
                 echo "Invalid Password!";
             }
