@@ -16,16 +16,6 @@
 </head>
 <body>
 
-
-  <!--<div class="verticalbar">
-    <a href="index.php"><img src="boeket.png" width="190" height="190"></a>
-    <a href="loginEmployee.php">Inloggen medewerkers</a>
-    <a href="loginCustomer.php">Inloggen klanten</a>
-    <a href="contact.php">Contactpagina</a>
-    <a href="register.php">Registreren</a>
-  </div>
--->
-
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <!-- Brand/logo -->
   <a class="navbar-brand" href="index.php">

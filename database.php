@@ -28,3 +28,142 @@ class DB{
         }
       
     }
+
+
+
+    /**
+     * Preparing the query to prevent sql injections
+     * @return the rows from table `account`
+     */
+    public function showArticles(){
+        try {
+            $query = "SELECT * FROM artikel;";
+            
+            $prep = $this->pdo->prepare($query);
+
+            $prep->execute();
+
+            $rows = $prep->fetchAll(PDO::FETCH_ASSOC);
+            
+            return $rows;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function create_klant($voornaam, $tussenvoegsels, $achternaam, $adres, $postcode, $woonplaats, $geboortedatum, $gebruikersnaam, $wachtwoord){
+        try {
+             /* Begin a transaction, turning off autocommit */
+             $this->pdo->beginTransaction(); 
+ 
+             $sql = "INSERT INTO klant(klantcode, voorletters, tussenvoegsels, achternaam, adres, postcode, woonplaats, geboortedatum, gebruikersnaam, wachtwoord)
+             VALUES(NULL, :voorletters, :tussenvoegsels, :achternaam, :adres, :postcode, :woonplaats, :geboortedatum, :gebruikersnaam, :wachtwoord);";
+ 
+             $query = $this->pdo->prepare($sql);
+ 
+             $query->execute([
+                 'voorletters' => $voornaam,
+                 'tussenvoegsels' => $tussenvoegsels,
+                 'achternaam' => $achternaam,
+                 'adres' => $adres,
+                 'postcode' => $postcode,
+                 'woonplaats' => $woonplaats,
+                 'geboortedatum' => $geboortedatum,
+                 'gebruikersnaam' => $gebruikersnaam,
+                 'wachtwoord' => $wachtwoord
+             ]);
+
+             /* Commit the changes */
+             $this->pdo->commit();
+ 
+             /* Prevents that data is always added to the table during refresh */
+             header("Location: loginCustomer.php");
+
+             exit;
+        }catch (PDOException $e) {
+            /* Recognize mistake and roll back changes */
+            $this->pdo->rollback();
+            
+            throw $e;
+        }
+    }
+
+         /**
+     * Preparing the query to prevent sql injections
+     * @return  specific row from table `gender`
+     */
+    public function selectSpecificArtikel($artikelcode){
+        try {
+            $query = "SELECT * FROM artikel WHERE artikelcode = :artikelcode;";
+
+            $prep = $this->pdo->prepare($query);
+
+            $prep->execute([
+                'artikelcode' => $artikelcode
+            ]);
+
+            $row = $prep->fetch(PDO::FETCH_ASSOC);
+        
+            return $row;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function selectSpecificPrijs($artikelcode){
+        try {
+            $query = "SELECT * FROM artikel WHERE artikelcode = :artikelcode;";
+
+            $prep = $this->pdo->prepare($query);
+
+            $prep->execute([
+                'artikelcode' => $artikelcode
+            ]);
+
+            $row = $prep->fetch(PDO::FETCH_ASSOC);
+        
+            return $row;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function updateArtikel($artikelcode, $artikel){
+        try {
+            $query = "UPDATE artikel SET artikel = :artikel WHERE artikelcode = :artikelcode;";
+
+            $prep = $this->pdo->prepare($query);
+
+            $prep->execute([
+                'artikelcode' => $artikelcode,
+                'artikel' => $artikel
+            ]);
+
+            header('Location: overzicht_artikelen.php');
+
+            //exit;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function updatePrijs($artikelcode, $prijs){
+        try {
+            $query = "UPDATE artikel SET prijs = :prijs WHERE artikelcode = :artikelcode;";
+
+            $prep = $this->pdo->prepare($query);
+
+            $prep->execute([
+                'artikelcode' => $artikelcode,
+                'prijs' => $prijs
+            ]);
+
+            header('Location: overzicht_artikelen.php');
+
+            exit;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+}
+?>
