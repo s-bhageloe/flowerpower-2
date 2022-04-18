@@ -25,10 +25,10 @@
   <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="loginEmployee.php">Inloggen klanten</a>
+      <a class="nav-link" href="klanten/loginCustomer.php">Inloggen klanten</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="loginCustomer.php">Inloggen medewerkers</a>
+      <a class="nav-link" href="medewerkers/loginEmployee.php">Inloggen medewerkers</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="contact.php">Contactpagina</a>

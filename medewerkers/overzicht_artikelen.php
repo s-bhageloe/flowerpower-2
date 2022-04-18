@@ -1,4 +1,5 @@
 <?php
+
 include_once '../database.php';
 
 // Connection made
@@ -6,7 +7,19 @@ $db = new DB('localhost', 'root', '', 'flowerpower', 'utf8mb4'); //hier zet je d
 
 $articles = $db->showArticles();
 
+session_start();
+if(!isset($_SESSION['gebruikersnaam'])) {
+    // echo '<h1>Gebruiker is ingelogd</h1>';
 
+    $_SESSION['gebruikersnaam'] = true;
+    header('Location: overzicht_artikelen.php');
+
+} 
+// else{
+//     // User not loggedin
+//     header('Location: overzicht_artikelen.php');
+//     print "niet ingelogd";
+// }
 
 
 //Looping through array `users`
@@ -30,6 +43,9 @@ $articles = $db->showArticles();
 </head>
 <body>
     <main>
+    <main class="container mt-4 mb-4">
+        <a class="btn btn-success mr-2 btn-sm" href="create.php">Create</a>
+        <a class="btn btn-warning mr-2 btn-sm" href="loginEmployee.php">Log out</a>
         <table class="table table-striped" id="overzicht">
             <thead class="thead-dark">
                 <tr>
